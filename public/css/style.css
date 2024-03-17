@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+nav ul li a i {
+    margin-right: 5px;
+}
+
+/* 鼠标悬浮在链接上时改变图标和文字颜色 */
+nav ul li a:hover {
+    color: #ffcc00;
+}
+
+/* 提示样式 */
+nav ul li a[title]:hover:after {
+    content: attr(title);
+    position: absolute;
+    padding: 4px 8px;
+    background: #333333;
+    color: #ffffff;
+    border-radius: 5px;
+    top: 100%;
+    white-space: nowrap;
+    z-index: 20;
+}
+
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
