@@ -19,9 +19,28 @@
             <ul>
                 <!-- 每个菜单项旁边使用 Font Awesome 图标，并使用 title 属性提供悬浮提示 -->
                 <li><a href="/" title="Home"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="/register" title="Create User"><i class="fas fa-user-plus"></i> Create User</a></li>
-                <li><a href="/login" title="Login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <!-- <li><a href="/register" title="Create User"><i class="fas fa-user-plus"></i> Create User</a></li>
+                <li><a href="/login" title="Login"><i class="fas fa-sign-in-alt"></i> Login</a></li> -->
                 <li><a href="{{ route('travel_ideas.index') }}" title="Travel Ideas"><i class="fas fa-lightbulb"></i> Travel Ideas</a></li>
+                <!-- 根据用户的登录状态动态显示登录、注册或仪表盘链接 -->
+                @auth
+                    <li><a href="{{ url('/dashboard') }}" title="Dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a href="route('logout')"
+                                onclick="event.preventDefault();
+                                this.closest('form').submit();">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </form>
+                    </li>
+                @else
+                    <li><a href="{{ route('login') }}" title="Login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    @if (Route::has('register'))
+                        <li><a href="{{ route('register') }}" title="Register"><i class="fas fa-user-plus"></i> Register</a></li>
+                    @endif
+                @endauth
             </ul>
         </nav>
 

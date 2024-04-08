@@ -1,5 +1,5 @@
 /* Apply a basic reset */
-/* 这是展示idea的样式文件 */
+/* 这是创建idea时展示的样式文件 */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -26,22 +26,6 @@ h1 {
     color: #333;
     margin-bottom: 24px;
     text-align: center;
-}
-
-nav {
-    background-color: #eeeeee;
-    padding: 0.5em;
-}
-
-nav a {
-    margin: 0 1em;
-    text-decoration: none;
-    color: #333333;
-    font-weight: bold;
-}
-
-nav a:hover {
-    color: #000000;
 }
 
 .form-group {
@@ -147,43 +131,4 @@ nav a:hover {
     content: "";
     display: table;
     clear: both;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    padding: 1em;
-    /* list-style: none; */
-    /* 移除列表样式 */
-}
-
-.pagination li {
-    margin: 0 5px;
-}
-
-.pagination a,
-.pagination span {
-    color: #007bff;
-    text-decoration: none;
-    padding: .5em 1em;
-    border: 1px solid #ddd;
-    border-radius: .25rem;
-    background: #f8f9fa;
-}
-
-.pagination .active a,
-.pagination .active span {
-    background: #007bff;
-    color: white;
-    border-color: #007bff;
-
-}
-
-/* 直接针对箭头样式进行调整 */
-.pagination [rel="prev"],
-.pagination [rel="next"] {
-    /* 如果箭头是背景图片，调整背景大小可能有所帮助 */
-    background-size: 1px;
-    /* font-size: 1em; */
-    /* 根据实际情况调整这个值 */
 }

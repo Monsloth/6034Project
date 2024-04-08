@@ -1,5 +1,8 @@
-@extends('layouts.BookLayout')
+<!-- @extends('layouts.BookLayout') -->
 @section('content')
+@push('styles')
+    <link href="{{ asset('css/create.css') }}" rel="stylesheet">
+@endpush
     <div class="container">
         <h1>New Travel Idea</h1>
         <form action="/travel_ideas" method="POST">
