@@ -32,10 +32,15 @@
                     url: url,
                     data: formData,
                     success: function(response) {
-                        // 处理成功响应，例如清空表单、动态添加新评论等
+                        // 添加新评论到页面顶部的评论列表
+                        $('#comments').prepend(response);
+                        
+                        // 清空评论框
+                        $('#comment-form textarea[name="comment"]').val('');
                     },
                     error: function(error) {
                         // 处理错误响应
+                        alert('Error: ' + xhr.responseText);
                     }
                 });
             });

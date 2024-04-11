@@ -18,7 +18,7 @@ Route::get('/welcome', function () {
 Route::get('/travel_ideas', [TravelIdeaController::class, 'index'])->name('travel_ideas.index');
 Route::get('/travel_ideas/create', [TravelIdeaController::class, 'create'])->name('travel_ideas.create');
 Route::post('/travel_ideas', [TravelIdeaController::class, 'store'])->name('travel_ideas.store');
-// 编辑comments
+// 编辑ideas
 Route::get('/travel_ideas/{idea}/edit', [TravelIdeaController::class, 'edit'])->name('travel_ideas.edit');
 Route::put('/travel_ideas/{idea}', [TravelIdeaController::class, 'update'])->name('travel_ideas.update');
 
@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/travel_ideas/my_ideas', [TravelIdeaController::class, 'showUserIdeas'])->name('travel_ideas.my_ideas');
 
 
-
+// API路由
 Route::get('/search', [SearchPageController::class, 'index']);
 Route::get('/searchkeyword_by_tags', [SearchPageController::class, 'searchkeyword_by_tags']);
 Route::get('/searchkeyword_by_destination', [SearchPageController::class, 'searchkeyword_by_destination']);
