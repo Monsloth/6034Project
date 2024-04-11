@@ -28,7 +28,7 @@
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <a href="route('logout')"
+                            <a href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                 this.closest('form').submit();">
                                 <i class="fas fa-sign-out-alt"></i> Logout
@@ -48,6 +48,10 @@
     <!-- 主要内容区域 -->
     <main>
         <section>
+            <!-- 显示欢迎消息和用户的名字 -->
+            @auth
+                <h2>Welcome, {{ auth()->user()->name }}</h2>
+            @endauth
             <h2>Share and Explore Travel Ideas</h2>
             <p>Discover new destinations, share your own travel stories, and get inspired for your next adventure.</p>
         </section>

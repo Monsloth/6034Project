@@ -9,4 +9,5 @@ class TravelIdea extends Model
 {
     use HasFactory;
     protected $fillable = ['title', 'destination', 'start_date', 'end_date', 'tags'];
+    protected $primaryKey = 'idea_id';
 }

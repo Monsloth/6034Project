@@ -17,6 +17,11 @@ nav ul {
     padding: 0;
 }
 
+nav li form {
+    display: inline;
+    /* 防止表单造成换行 */
+}
+
 nav ul li {
     display: inline;
     margin-right: 20px;

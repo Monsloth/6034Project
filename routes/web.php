@@ -29,4 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// 编辑ideas
+Route::get('/travel_ideas/my_ideas', [TravelIdeaController::class, 'showUserIdeas'])->name('travel_ideas.my_ideas');
+
+Route::get('/travel_ideas/{idea}/edit', [TravelIdeaController::class, 'edit'])->name('travel_ideas.edit');
+Route::put('/travel_ideas/{idea}', [TravelIdeaController::class, 'update'])->name('travel_ideas.update');
+
+
 require __DIR__ . '/auth.php';

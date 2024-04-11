@@ -1,0 +1,22 @@
+/* Navbar.css - 仅用于导航栏样式 */
+
+.navbar {
+    background-color: #eeeeee;
+    padding: 0.5em;
+    text-align: center !important;
+    justify-content: center;
+    /* 如果你想导航栏居中 */
+}
+
+.navbar div a {
+    margin: 0 1em;
+    text-decoration: none;
+    color: #333333;
+    font-weight: bold;
+}
+
+.navbar div a:hover {
+    color: #000000;
+}
+
+/* 可以添加更多导航栏专用样式 */
