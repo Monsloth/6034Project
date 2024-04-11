@@ -15,6 +15,7 @@
             <a href="{{route('index')}}">Home Page </a>
             <a href="{{route('travel_ideas.index')}}">All ideas</a>
             <a href="{{ route('travel_ideas.create')}}">New Idea</a>
+            <a href="{{route('travel_idea.search')}}">Search Ideas</a>
             <a href="{{ route('travel_ideas.my_ideas') }}">Edit My Idea</a>
             <a href="/logout">Logout</a>
         </div>

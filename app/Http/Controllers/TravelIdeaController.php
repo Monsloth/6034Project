@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TravelIdea;
+use App\Models\Comment;
 
 class TravelIdeaController extends Controller
 {
@@ -81,4 +82,14 @@ class TravelIdeaController extends Controller
         return redirect()->route('travel_ideas.index')->with('success', 'Idea updated successfully');
     }
 
+    // 添加comments
+    public function showComments($id)
+    {
+        $travelIdea = TravelIdea::findOrFail($id);
+        $comments = Comment::where('idea_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('travel_idea_comments', compact('travelIdea', 'comments'));
+    }
 }

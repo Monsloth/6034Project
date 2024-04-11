@@ -4,18 +4,22 @@
 
 
 <!-- search box  part 1-->
-
-
 <form id="search-form" action="#" method="POST">
     @csrf
-    <input type="text" id="search_city" value="Boston" placeholder="Search destinations...">
+    <select id="search_type">
+        <option value="destination">Destination</option>
+        <option value="tags">Tags</option>
+    </select>
+    <input type="text" id="search_keyword" placeholder="Enter keyword...">
     departure date<input type="date" id="departureDate" value="2024-05-02">
+    <button type="button" id="search-btn">Search</button>
     <button type="button" id="search-btn">Search</button>
 </form>
 
+
 <div class="ideas">
     <h2>Local Search Client-Side Results</h2>
-    <div id="search-results" ></div>
+    <div id="search_results" ></div>
 </div>
 
 <div class="hotel">
@@ -40,86 +44,112 @@
 
 <script>
     $(document).ready(function(){
-        var destinations = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.whitespace,
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: {
-                url: '/search_ideas?search_city=%QUERY',
-                wildcard: '%QUERY',
-                transform: function(response) {
-                console.log("get data:", response); 
-                // 假设返回的数据是对象数组，我们返回它以供 typeahead 使用
-                return response.map(function(item) {
-                    return item.destination; // 直接返回字符串数组
-                });
-            }
-            }
+        var searchType = $('#search_type').val(); // 初始搜索类型
+        setupTypeahead(searchType); // 初始化Typeahead
+
+        // 当搜索类型改变时更新Typeahead
+        $('#search_type').change(function() {
+            searchType = $(this).val();
+            setupTypeahead(searchType);
         });
 
-        $('#search_city').typeahead({
-            hint: true,
-            highlight: true,
-            minLength: 1
-        }, {
-            name: 'destinations',
-            // display: 'value'
-            source: destinations
-        }).on('typeahead:selected', function(event, suggestion) {
-            // fill blank with the corresponding value
-            $(this).val(suggestion.value);
-            // console.log("final value:", destinations); 
-        });
-        
-
-        $('#search-btn').on('click', function(){
-            $('#destination').val($('#search-input').val());
-            var search_city = $('#search_city').val();
-            $.ajax({
-                url: '/fetch_destinations',
-                type: 'GET',
-                data: {search_city: search_city},
-                success: function(data){
-                    $('#search-results').empty();
-                    $.each(data, function(index, item){
-                        $('#search-results').append(
-                            '<div>' +
-                            '<p>Destination: ' + item.destination + '</p>' +
-                            '<p>Title: ' + item.title + '</p>' +
-                            '<p>Tags: ' + item.tags + '</p>' +
-                            '<p>username: ' + item.user_name + '</p>' +
-                            '</div>'
-                        );
-                    });
+        function setupTypeahead(searchType) {
+            var bloodhoundSource = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/searchkeyword_by_' + searchType + '?search_keyword=%QUERY',
+                    wildcard: '%QUERY',
+                    transform: function(response) {
+                        // 依据返回的数据格式进行适当的处理
+                        return $.map(response, function(item) {
+                            if (searchType === 'destination') {
+                                return { value: item.destination };
+                            } else { // tags
+                                return { value: item.tags }; // 如果是tags搜索，我们仍然返回目的地作为提示，这里可能需要调整以匹配你的具体需求
+                            }
+                        });
+                    }
                 }
             });
 
+            // 初始化Typeahead
+            $('#search_keyword').typeahead('destroy').typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 1
+            }, {
+                name: searchType,
+                display: 'value',
+                source: bloodhoundSource
+            });
+        };
+    })
+
+    $('#search-btn').on('click', function(){
+        var search_keyword = $('#search_keyword').val();
+        var searchType = $('#search_type').val();
+
+        if (searchType === 'destination') {
+            // 如果搜索类型为destination，直接将搜索词赋值给目的地输入框
+            $('#destination').val(search_keyword);
+            console.log("search which ideas"+search_keyword)
+        } else {
+            // 如果搜索类型为tags，需要查询数据库获取对应的目的地并赋值
+                $.ajax({
+                    url: '/searchkeyword_by_tags',
+                    type: 'GET',
+                    data: {search_keyword: search_keyword},
+                    success: function(data) {
+                        // 假设我们用第一个返回结果的目的地
+                        var destination = data[0] ? data[0].destination : '';
+                        $('#destination').val(destination);
+                        console.log("get destination"+$('#destination').val());
+                    }
+                });
+            };
+        $.ajax({
+            url: '/searchTravelIdeas',
+            type: 'GET',
+            data: {search_keyword: search_keyword},
+            success: function(data){
+                console.log("find ideas in process")
+                $('#search_results').empty();
+                $.each(data, function(index, item){
+                    $('#search_results').append(
+                        '<div>' +
+                        '<p>Destination: ' + item.destination + '</p>' +
+                        '<p>Title: ' + item.title + '</p>' +
+                        '<p>Tags: ' + item.tags + '</p>' +
+                        '<p>username: ' + item.user_name + '</p>' +
+                        '</div>'
+                    );
+                });
+            }
+        });
+
             // var hotelsearchurl = "https://test.api.amadeus.com/v3/shopping/hotel-offers?cityCode=" + cityCode
 
-// get citycode/ destination code
-            $('#destination').val($('#search_city').val());
+        // get citycode/ destination code
+
+
             var departureDate = $('#departureDate').val(); 
-            var cityName = $('#destination').val(); //
+            var cityName = $('#destination').val();
             $.ajax({
                 url: '/get_city_code',
                 type: 'GET',
                 data: { cityName: cityName },
                 success: function(data) {
                     var cityCode = data.cityCode;
+                    console.log("search destin cityname"+cityName)
                     $('#destinationLocationCode').text(cityCode);
-                    console.log("after"+cityCode);
-                    if(cityCode && departureDate) {
-                        console.log("success hotel-part"+cityCode, departureDate)
-                        getHotels(cityCode, departureDate);
-                    } else {
-                        console.log("fail"+cityCode, departureDate)
-                        alert("Please enter both city code and check-in date.");
-                    };
+                    console.log($('#destination').val());
                 },
                 error: function(error) {
                     console.error("Error fetching city code:", error);
                 }
             });
-// get depature citycode
+        // get depature citycode
             var departureName = $('#departure').val();
             $.ajax({
                     url: '/get_city_code',
@@ -146,47 +176,44 @@
             
             function getHotels(cityCode, departureDate) {
             // var apiUrl = '/get-hotels'; // Laravel 路由
-            $.ajax({
-                url: '/get_hotels',
-                type: "GET",
-                data: {
-                    'cityCode': cityCode, // 确保这与 Laravel 控制器期待的参数名匹配
-                    'departureDate': departureDate 
-                },
-                success: function(response) {
-                    console.log("get-hotle function response"+response); // 用于调试
-                    var totalHotels = response.totalHotels;
-                    $('#total_hotels').text('Total Hotels: ' + totalHotels);
+                $.ajax({
+                    url: '/get_hotels',
+                    type: "GET",
+                    data: {
+                        'cityCode': cityCode, // 确保这与 Laravel 控制器期待的参数名匹配
+                        'departureDate': departureDate 
+                    },
+                    success: function(response) {
+                        console.log("get-hotle function response"+response); // 用于调试
+                        var totalHotels = response.totalHotels;
+                        $('#total_hotels').text('Total Hotels: ' + totalHotels);
 
-                    // 清空现有酒店列表
-                    $('#hotel_list_results').empty();
+                        // 清空现有酒店列表
+                        $('#hotel_list_results').empty();
 
-                    // 遍历酒店数据并展示
-                    $.each(response.hotels, function(i, hotel) {
-                        var hotelElement = $('<div class="hotel">' +
-                            '<h3>' + hotel.name + '</h3>' +
-                            '<p>Distance: ' + hotel.distance.value + ' ' + hotel.distance.unit + '</p>' +
-                            '<p>Address: ' + (hotel.address.line1 || 'N/A') +
-                            ', ' + (hotel.address.city || 'N/A') +
-                            ', ' + (hotel.address.region || 'N/A') +
-                            ', ' + (hotel.address.postalCode || 'N/A') +
-                            ' ' + (hotel.address.countryCode || 'N/A') + '</p>' +
-                            '<p>Price: USD ' + (hotel.price || 'N/A') + '</p>' +
-                            '</div>');
+                        // 遍历酒店数据并展示
+                        $.each(response.hotels, function(i, hotel) {
+                            var hotelElement = $('<div class="hotel">' +
+                                '<h3>' + hotel.name + '</h3>' +
+                                '<p>Distance: ' + hotel.distance.value + ' ' + hotel.distance.unit + '</p>' +
+                                '<p>Address: ' + (hotel.address.line1 || 'N/A') +
+                                ', ' + (hotel.address.city || 'N/A') +
+                                ', ' + (hotel.address.region || 'N/A') +
+                                ', ' + (hotel.address.postalCode || 'N/A') +
+                                ' ' + (hotel.address.countryCode || 'N/A') + '</p>' +
+                                '<p>Price: USD ' + (hotel.price || 'N/A') + '</p>' +
+                                '</div>');
 
-                        // 添加到页面中
-                        $('#hotel_list_results').append(hotelElement);
-                    });
-                },
-                error: function(error) {
-                    console.error("Error: ", error);
-                }
-            });
-        };
-
-        });
-    });
-
+                            // 添加到页面中
+                            $('#hotel_list_results').append(hotelElement);
+                        });
+                    },
+                    error: function(error) {
+                        console.error("Error: ", error);
+                    },
+                });
+            }
+    })
 </script>
 
 
@@ -247,10 +274,4 @@
             });
         });
     });
-</script>
-
-<script>
-    // function
-
-
 </script>

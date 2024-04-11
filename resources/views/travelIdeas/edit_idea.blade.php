@@ -6,7 +6,7 @@
 
     <div class="container">
         <h1>Edit Your Travel Idea</h1>
-        <form action="{{ route('travel_ideas.update', $idea->idea_id) }}" method="POST">
+        <form action="{{ route('travel_ideas.update', $idea->id) }}" method="POST">
             @csrf <!-- CSRF 令牌用于保护表单 -->
             @method('PUT')
             

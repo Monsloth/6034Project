@@ -25,7 +25,7 @@
                     <td>{{ $idea->end_date }}</td>
                     <td>{{ $idea->tags }}</td>
                     <!-- 编辑按钮 -->
-                    <td><a href="{{ route('travel_ideas.edit', $idea->idea_id) }}">Edit</a></td>
+                    <td><a href="{{ route('travel_ideas.edit', $idea->id) }}">Edit</a></td>
                 </tr>
             @endforeach
         </tbody>

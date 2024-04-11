@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TravelIdea extends Model
+class SearchPage extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'destination', 'start_date', 'end_date', 'tags'];
+    protected $table = 'city_code';
 }

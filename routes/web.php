@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TravelIdeaController;
+use App\Http\Controllers\SearchPageController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', function () {
     return view('index');
@@ -16,6 +18,9 @@ Route::get('/welcome', function () {
 Route::get('/travel_ideas', [TravelIdeaController::class, 'index'])->name('travel_ideas.index');
 Route::get('/travel_ideas/create', [TravelIdeaController::class, 'create'])->name('travel_ideas.create');
 Route::post('/travel_ideas', [TravelIdeaController::class, 'store'])->name('travel_ideas.store');
+// 编辑comments
+Route::get('/travel_ideas/{idea}/edit', [TravelIdeaController::class, 'edit'])->name('travel_ideas.edit');
+Route::put('/travel_ideas/{idea}', [TravelIdeaController::class, 'update'])->name('travel_ideas.update');
 
 // 登录验证
 Route::get('/dashboard', function () {
@@ -32,8 +37,23 @@ Route::middleware('auth')->group(function () {
 // 编辑ideas
 Route::get('/travel_ideas/my_ideas', [TravelIdeaController::class, 'showUserIdeas'])->name('travel_ideas.my_ideas');
 
-Route::get('/travel_ideas/{idea}/edit', [TravelIdeaController::class, 'edit'])->name('travel_ideas.edit');
-Route::put('/travel_ideas/{idea}', [TravelIdeaController::class, 'update'])->name('travel_ideas.update');
+
+
+Route::get('/search', [SearchPageController::class, 'index']);
+Route::get('/searchkeyword_by_tags', [SearchPageController::class, 'searchkeyword_by_tags']);
+Route::get('/searchkeyword_by_destination', [SearchPageController::class, 'searchkeyword_by_destination']);
+Route::get('/searchTravelIdeas', [SearchPageController::class, 'searchTravelIdeas']);
+Route::get('/get_city_code', [SearchPageController::class, 'getCityCode']);
+Route::get('/get_hotels', [SearchPageController::class, 'getHotels']);
+Route::get('/search_flights', [SearchPageController::class, 'searchFlights']);
+
+
+
+// comments路由
+Route::get('/travel-ideas/{id}/comments', [TravelIdeaController::class, 'showComments']);
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+
+
 
 
 require __DIR__ . '/auth.php';
