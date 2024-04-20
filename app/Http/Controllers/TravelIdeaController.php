@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TravelIdea;
 use App\Models\Comment;
+use App\Models\CityCode;
 
 class TravelIdeaController extends Controller
 {
@@ -30,10 +31,26 @@ class TravelIdeaController extends Controller
             'tags' => 'nullable|string' // 标签是可选的
         ]);
 
+        // 检查目的地是否有效
+        $city = CityCode::where('city', 'like', '%' . $validatedData['destination'] . '%')->first();
+        if (!$city) {
+            // 如果是AJAX请求，返回错误信息的JSON响应
+            if ($request->ajax()) {
+                return response()->json(['error' => 'The selected destination is invalid.'], 422);
+            }
+            // 如果不是AJAX请求，执行重定向操作并带有错误信息
+            return redirect()->back()->withErrors(['destination' => 'The selected destination is invalid.']);
+        }
+
         // 创建新的旅游想法记录
         $travelIdea = new TravelIdea($validatedData);
         $travelIdea->user_name = auth()->user()->name; // 假设用户已经登录
         $travelIdea->save(); // 保存记录到数据库
+
+        // 如果是AJAX请求，返回成功信息的JSON响应
+        if ($request->ajax()) {
+            return response()->json(['success' => 'Travel idea added successfully.']);
+        }
 
         // 重定向到旅游想法列表页面，并显示消息
         return redirect()->route('travel_ideas.index')->with('success', 'Travel idea added successfully.');
@@ -82,14 +99,4 @@ class TravelIdeaController extends Controller
         return redirect()->route('travel_ideas.index')->with('success', 'Idea updated successfully');
     }
 
-    // 添加comments
-    public function showComments($id)
-    {
-        $travelIdea = TravelIdea::findOrFail($id);
-        $comments = Comment::where('idea_id', $id)
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return view('travel_idea_comments', compact('travelIdea', 'comments'));
-    }
 }

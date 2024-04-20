@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TravelIdea extends Model
+class CityCode extends Model
 {
+    protected $table = 'city_code'; // 你的表名
     use HasFactory;
-    protected $fillable = ['id', 'title', 'destination', 'start_date', 'end_date', 'tags', 'user_name'];
+    protected $fillable = ['city', 'citycode'];
+
 }

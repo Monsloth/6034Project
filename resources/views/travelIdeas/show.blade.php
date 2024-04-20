@@ -13,6 +13,7 @@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Tags</th>
+                <th>Comments</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
                     <td>{{ $idea->start_date }}</td>
                     <td>{{ $idea->end_date }}</td>
                     <td>{{ $idea->tags }}</td>
+                    <td><a href="{{ route('comments.show', $idea->id)}}">comments</a></td>
                 </tr>
             @endforeach
         </tbody>

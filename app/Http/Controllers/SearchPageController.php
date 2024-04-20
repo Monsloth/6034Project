@@ -56,7 +56,7 @@ class SearchPageController extends Controller
     public function getCityCode(Request $request)
     {
         $cityName = $request->input('cityName');
-        $cityCode = DB::table('city_code')->where('city', $cityName)->first()->citycode ?? 'Not Found';
+        $cityCode = DB::table('city_code')->where('city', 'LIKE', "%$cityName%")->first()->citycode ?? 'Not Found';
 
         return response()->json(['cityCode' => $cityCode]);
     }
@@ -80,7 +80,7 @@ class SearchPageController extends Controller
             $hotelsData = $hotelListResponse->json()['data'];
 
             foreach ($hotelsData as &$hotel) {
-                // 对于每个酒店，获取价格信息
+                // For each hotel, get price information
                 $hotelId = $hotel['hotelId'];
                 $hotelPriceResponse = Http::withHeaders([
                     'Authorization' => 'Bearer ' . $accessToken
@@ -94,7 +94,6 @@ class SearchPageController extends Controller
                         ]);
 
                 if ($hotelPriceResponse->successful()) {
-                    // 假设我们只关心第一个offer
                     $offers = $hotelPriceResponse->json()['data'][0]['offers'] ?? null;
                     if ($offers && count($offers) > 0) {
                         $hotel['price'] = $offers[0]['price']['total'];
@@ -102,7 +101,7 @@ class SearchPageController extends Controller
                 }
             }
 
-            // 返回带价格的酒店信息
+            // Return hotel information with price
             return response()->json([
                 'totalHotels' => count($hotelsData),
                 'hotels' => $hotelsData
@@ -120,7 +119,7 @@ class SearchPageController extends Controller
         $destinationCode = $request->query('destinationLocationCode');
         $departureDate = $request->query('departureDate');
 
-        $accessToken = 'DCbpQpv1CpBFGfgnPvBUtWIVATw9'; // 你的API访问令牌
+        $accessToken = 'DCbpQpv1CpBFGfgnPvBUtWIVATw9';
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
         ])->get("https://test.api.amadeus.com/v2/shopping/flight-offers", [

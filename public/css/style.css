@@ -1,8 +1,10 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
 }
 
 header {
@@ -15,48 +17,53 @@ header {
 nav ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
-nav li form {
-    display: inline;
-    /* 防止表单造成换行 */
-}
-
-nav ul li {
+nav li {
     display: inline;
     margin-right: 20px;
 }
 
-nav ul li a {
+nav a {
     color: #ffffff;
     text-decoration: none;
+    transition: color 0.3s ease-in-out;
 }
 
-nav ul li a i {
+nav a i {
     margin-right: 5px;
 }
 
-/* 鼠标悬浮在链接上时改变图标和文字颜色 */
-nav ul li a:hover {
+nav a:hover {
     color: #ffcc00;
+    /* Change hover color to a golden shade for better visibility */
 }
 
-/* 提示样式 */
-nav ul li a[title]:hover:after {
-    content: attr(title);
-    position: absolute;
-    padding: 4px 8px;
-    background: #333333;
-    color: #ffffff;
-    border-radius: 5px;
-    top: 100%;
-    white-space: nowrap;
-    z-index: 20;
+nav form {
+    display: inline;
+    /* Keep the logout form inline */
 }
-
 
 main {
     padding: 20px;
+    text-align: center;
+    /* Center align the main content */
+}
+
+main h2 {
+    margin-top: 20px;
+    color: #0056b3;
+    /* A deeper blue for headers */
+}
+
+main p {
+    font-size: 1.2rem;
+    /* Larger font size for readability */
+    max-width: 600px;
+    /* Limit width of text for better reading experience */
+    margin: 20px auto;
+    /* Center text blocks vertically and horizontally */
 }
 
 footer {
@@ -67,4 +74,26 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+/* Add a subtle shadow to the header and footer for depth */
+header,
+footer {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhance link accessibility with tooltips */
+nav ul li a[title]:hover:after {
+    content: attr(title);
+    position: absolute;
+    padding: 4px 8px;
+    background: #333333;
+    color: #ffffff;
+    border-radius: 5px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 20;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

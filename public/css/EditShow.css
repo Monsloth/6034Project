@@ -1,31 +1,83 @@
 /* Ensure the table layout is auto so that cell widths are based on their content */
+/* Apply a general reset to remove default styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 2em;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-top: 2em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 h2 {
-    color: #333;
-    margin-bottom: 24px;
     text-align: center;
+    color: #333;
+    margin-bottom: 1em;
 }
 
 table {
-    width: auto;
-    /* Adjust this if you want the table to take up more space */
-    table-layout: auto;
-    /* This allows table cells to grow according to content */
+    width: 100%;
     border-collapse: collapse;
-    /* This makes the table more compact by removing cell spacing */
-    margin: auto;
-    /* Center the table on the page or within its container */
+    margin-bottom: 1em;
 }
 
-/* Styling table headers and cells for a clearer layout */
+thead {
+    background-color: #009688;
+}
+
 th,
 td {
-    border: 1px solid #ccc;
-    /* Give cells a slight border */
-    padding: 8px;
-    /* Add some padding for text readability */
+    padding: 1em;
+    border: 1px solid #dddddd;
     text-align: left;
-    /* Align text to the left, adjust as necessary */
 }
+
+tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+a {
+    color: #009688;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons and actions styling */
+td a {
+    padding: 0.5em 1em;
+    display: inline-block;
+    background: #009688;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+td a:hover {
+    background-color: #00796b;
+}
+
 
 /* Zebra striping for table rows */
 tr:nth-child(odd) {

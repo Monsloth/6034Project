@@ -1,0 +1,203 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 5%;
+    background: #f4f4f4;
+}
+
+/* Flex container for the search bar to align items */
+#search-form {
+    display: flex;
+    justify-content: center;
+    /* Centers search form items */
+    align-items: center;
+    /* Vertically aligns items in the middle */
+    padding: 10px;
+    margin-top: 0px;
+    /* Gives some space on the top of the form */
+}
+
+/* Styles for the dropdown */
+#search_type {
+    left: auto;
+    border: 1px solid #ccc;
+    border-radius: 2em;
+    padding: 8px 8px 8px 8px;
+    background: white;
+    /* border-top-left-radius: 24px;  */
+
+}
+
+/* Container for input and button */
+.searchbar {
+    margin: 10px 10px 10px 10px auto;
+    display: flex;
+    border: 1px solid #dfe1e5;
+    border-radius: 2em;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+    background-color: white;
+    overflow: visible;
+    /* Ensures inner elements do not break the border radius */
+}
+
+/* .searchbar {
+    overflow: visible; 
+} */
+
+#search_keyword.typeahead,
+.tt-menu {
+    /* Assuming typeahead uses .tt-menu class */
+    z-index: 1000;
+    /* Ensure it's on top of other content */
+    border-radius: 2em;
+}
+
+
+
+/* Styles for the input */
+#search_keyword {
+    border: none;
+    padding: 10px 20px 10px;
+    flex-grow: 1;
+    /* Allows input to fill space */
+    font-size: 16px;
+
+}
+
+/* Button styling */
+#search-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #92afd6;
+    /* Google's button color */
+    color: white;
+    border-top-right-radius: 24px;
+    /* Rounded corners on the right side */
+    border-bottom-right-radius: 24px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Input focus styling */
+#search_keyword {
+    width: 600px;
+    outline: none;
+    /* Removes the default focus outline */
+    box-shadow: inset 0 1px 2px rgba(32, 33, 36, 0.28);
+}
+
+/* Button hover and active styling */
+#search-btn:hover {
+    background-color: #0056b3;
+    /* Slightly darker on hover */
+}
+
+
+/* Ensure the select and search input text are aligned */
+#search_type,
+#search_keyword {
+    height: 44px;
+    /* Ensures alignment and consistent height */
+    line-height: 44px;
+    /* Vertically centers text */
+}
+
+
+/* Remove margins from form elements */
+#search_type,
+.searchbar {
+    margin: 0;
+}
+
+/* Adjust the layout on smaller screens */
+@media (max-width: 768px) {
+    #search-form {
+        flex-direction: column;
+    }
+
+    #search_type,
+    .searchbar {
+        width: 100%;
+        margin-bottom: 10px;
+        /* Adds space between dropdown and search bar on smaller screens */
+    }
+
+    #search_type {
+        border-radius: 24px;
+        /* Restores border radius for standalone dropdown */
+        border-right: 1px solid #dfe1e5;
+    }
+
+    .searchbar {
+        border-radius: 24px;
+    }
+}
+
+
+/* Flex container for content areas */
+.column {
+    float: left;
+    width: 33.33%;
+}
+
+/* Clearing floats if any are present */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+/* flight part */
+#search_area_flight {
+    background-color: #c8dae8;
+    /* Light blue with transparency */
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#search_area_flight input[type="text"],
+#search_area_flight input[type="date"] {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    /* Full width */
+    box-sizing: border-box;
+    /* Includes padding and border in the element's width */
+}
+
+#search_area_flight button {
+    background-color: #92afd6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#search_area_flight button:hover {
+    background-color: #0056b3;
+}
+
+#search_area_flight div {
+    color: #333;
+    padding: 5px 0;
+}
+
+
+
+/* Section titles */
+h2 {
+    color: #333;
+    border-bottom: 2px solid #92afd6;
+    padding-bottom: 10px;
+}

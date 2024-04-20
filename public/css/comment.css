@@ -1,0 +1,147 @@
+/* comment.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+}
+
+#header {
+    background-color: #daefff;
+    /* Light blue background */
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+
+#header h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+#header img {
+    max-width: 80px;
+    height: auto;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+#chatbox {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    min-height: 200px;
+}
+
+.comment {
+    /* border-bottom: 1px solid #ccc; */
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.comment small {
+    color: #999;
+}
+
+.comment p {
+    margin: 0;
+}
+
+#comment-form {
+    margin-top: 20px;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+    /* Clears height collapse caused by floating elements*/
+    display: flex;
+    align-items: center;
+}
+
+#comment-form textarea {
+    width: 100%;
+    height: 40px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    margin-bottom: 10px;
+    flex: 1;
+}
+
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    /* Green background */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    border-radius: 5px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    font-size: 16px;
+    /* Larger font size */
+    transition: background-color 0.3s;
+    /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background-color: #45a049;
+    /* Darker shade of green */
+}
+
+#comment-form button[type="submit"] {
+    background-color: #598aaf;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#comment-form button[type="submit"]:hover {
+    background-color: #709bc3;
+}
+
+#comment-form button[type="button"] {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#comment-form button[type="button"]:hover {
+    background-color: #999;
+}
+
+textarea[name="comment"]::placeholder {
+    text-align: right;
+    vertical-align: bottom;
+}

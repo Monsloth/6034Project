@@ -14,10 +14,18 @@
             <!-- Navigation Buttons -->
             <a href="{{route('index')}}">Home Page </a>
             <a href="{{route('travel_ideas.index')}}">All ideas</a>
-            <a href="{{ route('travel_ideas.create')}}">New Idea</a>
-            <a href="{{route('travel_idea.search')}}">Search Ideas</a>
-            <a href="{{ route('travel_ideas.my_ideas') }}">Edit My Idea</a>
-            <a href="/logout">Logout</a>
+            <a href="{{route('travel_ideas.create')}}">New Idea</a>
+            <a href="{{route('travel_ideas.search')}}">Search Idea</a>
+            <a href="{{route('travel_ideas.my_ideas') }}">Edit My Idea</a>
+            <!-- Logout Link -->
+            @auth
+                <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: none;">
+                    @csrf
+                </form>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+            @endauth
         </div>
     </nav>
 
